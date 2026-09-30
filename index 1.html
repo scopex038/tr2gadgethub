@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLICK GEAR | বাংলাদেশের সেরা গেমিং গিয়ার</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{colors:{bg:'rgb(var(--c-bg) / <alpha-value>)',panel:'rgb(var(--c-panel) / <alpha-value>)',line:'#232c45',neon:'rgb(var(--c-neon) / <alpha-value>)',violet:'rgb(var(--c-violet) / <alpha-value>)',lime:'#39FF88'},fontFamily:{sans:['"Hind Siliguri"','sans-serif'],brand:['Orbitron','sans-serif']}}}}
+</script>
+<style>
+body{background:rgb(var(--c-bg));color:#e5e9f5;font-family:'Hind Siliguri',sans-serif}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(600px 300px at 15% -5%,rgba(139,92,246,.25),transparent),radial-gradient(500px 300px at 90% 10%,rgba(0,229,255,.15),transparent);pointer-events:none;z-index:-1}
+.glow:hover{box-shadow:0 0 22px rgb(var(--c-neon)/calc(.35*var(--gi)));border-color:rgb(var(--c-neon))}
+.btn-neon{background:linear-gradient(90deg,rgb(var(--c-neon)),rgb(var(--c-violet)));color:#06080f;font-weight:700;transition:.2s}
+.btn-neon:hover{filter:brightness(1.15);box-shadow:0 0 20px rgba(0,229,255,.5)}
+.field{width:100%;background:rgb(var(--c-bg));border:1px solid #232c45;border-radius:.6rem;padding:.6rem .8rem;outline:none;transition:.2s}
+.field:focus{border-color:#00E5FF;box-shadow:0 0 0 3px rgba(0,229,255,.15)}
+.drawer{transition:transform .3s}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s}
+.acc.open .acc-body{max-height:400px}
+.acc.open .chev{transform:rotate(180deg)}
+.chev{transition:.2s}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#232c45;border-radius:8px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+:root{--c-bg:11 15 25;--c-panel:18 24 41;--c-neon:0 229 255;--c-violet:139 92 246;--gi:1}
+body[data-btn=pill] .btn-neon{border-radius:999px!important}body[data-btn=square] .btn-neon{border-radius:4px!important}
+.card{background:rgb(var(--c-panel));border:1px solid #232c45;border-radius:.9rem;padding:1rem}
+.btn2{padding:.4rem .75rem;border:1px solid #232c45;border-radius:.6rem;font-size:.85rem}.btn2:hover{border-color:rgb(var(--c-neon))}
+.tabb{padding:.5rem .75rem;border-radius:.6rem;text-align:left;white-space:nowrap;color:#cbd5e1}.tabb.on{background:rgb(var(--c-neon)/.12);color:rgb(var(--c-neon));box-shadow:inset 3px 0 rgb(var(--c-neon))}
+</style><style id="dynCss"></style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="hdr" class="sticky top-0 z-40 bg-bg/85 backdrop-blur border-b border-line">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+    <a href="#" class="flex items-center gap-2 shrink-0">
+      <span id="logo" class="font-brand font-black text-lg sm:text-xl tracking-wider text-white" style="text-shadow:0 0 12px #00E5FF">FLICK<span class="text-neon"> GEAR</span></span>
+      <span class="hidden sm:inline text-[10px] px-2 py-0.5 rounded-full bg-violet/20 text-violet border border-violet/50 shadow-[0_0_10px_rgba(139,92,246,.6)]" id="tag">BD</span>
+    </a>
+    <nav class="hidden lg:flex gap-5 text-sm text-slate-300 ml-4">
+      <a class="hover:text-neon" href="#shop">Categories</a>
+      <a class="hover:text-neon" href="#shop" onclick="setCat('New')">New Drops</a>
+      <a class="hover:text-neon" href="#shop" onclick="setCat('Offers')">Offers</a>
+      <a class="hover:text-neon" href="#policies">Policies</a>
+      <a class="hover:text-neon" href="#footer">Support</a>
+    </nav>
+    <div class="hidden md:block flex-1 max-w-md ml-auto">
+      <input id="search" oninput="renderProducts()" class="field" placeholder="প্রোডাক্ট সার্চ করুন...">
+    </div>
+    <button onclick="toggleMenu()" class="lg:hidden ml-auto md:ml-0 p-2 rounded-lg border border-line" aria-label="Menu">☰</button>
+    <button onclick="openCart()" class="relative p-2 rounded-lg border border-line glow" aria-label="Cart">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h7.7a2 2 0 002-1.5L21 7H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+      <span id="cartCount" class="absolute -top-2 -right-2 min-w-[20px] h-5 px-1 rounded-full bg-lime text-black text-xs font-bold flex items-center justify-center">0</span>
+    </button>
+  </div>
+  <div id="mobMenu" class="hidden lg:hidden px-4 pb-3 space-y-3">
+    <input id="searchM" oninput="document.getElementById('search').value=this.value;renderProducts()" class="field md:hidden" placeholder="প্রোডাক্ট সার্চ করুন...">
+    <div class="flex flex-wrap gap-2 text-sm">
+      <a class="px-3 py-1 rounded-full border border-line" href="#shop" onclick="toggleMenu()">Categories</a>
+      <a class="px-3 py-1 rounded-full border border-line" href="#shop" onclick="setCat('New');toggleMenu()">New Drops</a>
+      <a class="px-3 py-1 rounded-full border border-line" href="#shop" onclick="setCat('Offers');toggleMenu()">Offers</a>
+      <a class="px-3 py-1 rounded-full border border-line" href="#policies" onclick="toggleMenu()">Policies</a>
+      <a class="px-3 py-1 rounded-full border border-line" href="#footer" onclick="toggleMenu()">Support</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="max-w-7xl mx-auto px-4 pt-12 pb-10 sm:pt-20 text-center">
+  <span id="heroBadge" class="inline-block text-xs px-3 py-1 rounded-full border border-lime/50 text-lime bg-lime/10 mb-5">🚚 সারা বাংলাদেশে ফাস্ট ডেলিভারি</span>
+  <h1 id="heroTitle" class="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight max-w-4xl mx-auto">বাংলাদেশের সেরা <span class="bg-gradient-to-r from-neon via-violet to-lime bg-clip-text text-transparent">প্রিমিয়াম গেমিং গিয়ার</span></h1>
+  <p id="heroSub" class="mt-5 text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">ফাস্ট ডেলিভারি আর ক্যাশ অন ডেলিভারি — সারা বাংলাদেশে। প্রোডাক্ট হাতে পেয়ে দেখে টাকা দিন।</p>
+  <div id="heroBtns" class="mt-8 flex flex-wrap justify-center gap-3">
+    <a href="#shop" class="btn-neon px-6 py-3 rounded-xl">সব প্রোডাক্ট দেখুন</a>
+    <a href="#shop" onclick="setCat('Offers')" class="px-6 py-3 rounded-xl border border-violet text-violet hover:bg-violet/15 hover:shadow-[0_0_20px_rgba(139,92,246,.5)] transition font-semibold">🔥 হট ডিলস</a>
+  </div>
+  <div id="stats" class="mt-10 grid grid-cols-3 max-w-2xl mx-auto gap-3">
+    <div class="bg-panel border border-line rounded-xl py-4"><div id="st1" class="text-xl sm:text-2xl font-bold text-neon">10,000+</div><div class="text-xs sm:text-sm text-slate-400">Gamers Served</div></div>
+    <div class="bg-panel border border-line rounded-xl py-4"><div id="st2" class="text-xl sm:text-2xl font-bold text-lime">4.9/5</div><div class="text-xs sm:text-sm text-slate-400">Rating</div></div>
+    <div class="bg-panel border border-line rounded-xl py-4"><div id="st3" class="text-xl sm:text-2xl font-bold text-violet">24/7</div><div class="text-xs sm:text-sm text-slate-400">Support</div></div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop" class="max-w-7xl mx-auto px-4 py-8 scroll-mt-20">
+  <h2 class="text-2xl sm:text-3xl font-bold mb-5">গেমিং এক্সেসরিজ</h2>
+  <div id="tabs" class="flex gap-2 overflow-x-auto pb-3 mb-4"></div>
+  <div id="grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5"></div>
+  <p id="empty" class="hidden text-center text-slate-400 py-16">কোনো প্রোডাক্ট পাওয়া যায়নি। অন্য কিওয়ার্ড দিয়ে সার্চ করুন।</p>
+</section>
+
+<!-- POLICIES -->
+<section id="policies" class="max-w-3xl mx-auto px-4 py-14 scroll-mt-20">
+  <h2 class="text-2xl sm:text-3xl font-bold mb-5 text-center">আমাদের পলিসি</h2>
+  <div class="space-y-3">
+    <div class="acc open bg-panel border border-line rounded-xl"><button class="w-full flex justify-between items-center p-4 font-semibold" onclick="this.parentElement.classList.toggle('open')">🚚 ডেলিভারি ইনফো<span class="chev">⌄</span></button><div class="acc-body px-4 pb-4 text-slate-400 text-sm leading-relaxed">ঢাকার ভেতরে ১–২ কার্যদিবস, ঢাকার বাইরে ২–4 কার্যদিবসে ডেলিভারি। ডেলিভারি চার্জ: ঢাকার ভিতরে ৳60, ঢাকার বাইরে ৳120। সারা দেশে ক্যাশ অন ডেলিভারি সুবিধা আছে।</div></div>
+    <div class="acc bg-panel border border-line rounded-xl"><button class="w-full flex justify-between items-center p-4 font-semibold" onclick="this.parentElement.classList.toggle('open')">🛡️ রিটার্ন ও রিপ্লেসমেন্ট পলিসি<span class="chev">⌄</span></button><div class="acc-body px-4 pb-4 text-slate-400 text-sm leading-relaxed">ডেলিভারির সময় প্রোডাক্ট ড্যামেজ বা ভুল আইটেম পেলে ৪৮ ঘণ্টার মধ্যে জানালে বিনামূল্যে রিপ্লেস করা হবে। আনবক্সিং ভিডিও রাখার অনুরোধ রইল।</div></div>
+    <div class="acc bg-panel border border-line rounded-xl"><button class="w-full flex justify-between items-center p-4 font-semibold" onclick="this.parentElement.classList.toggle('open')">🔄 এক্সচেঞ্জ পলিসি<span class="chev">⌄</span></button><div class="acc-body px-4 pb-4 text-slate-400 text-sm leading-relaxed">অব্যবহৃত ও অরিজিনাল প্যাকেজিং সহ প্রোডাক্ট ৩ দিনের মধ্যে এক্সচেঞ্জ করা যাবে। এক্সচেঞ্জের ডেলিভারি চার্জ ক্রেতা বহন করবেন।</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" class="border-t border-line bg-panel/60 scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 py-10 grid gap-8 md:grid-cols-3">
+    <div>
+      <div id="flogo" class="font-brand font-black text-xl">FLICK<span class="text-neon"> GEAR</span></div>
+      <p id="about" class="text-sm text-slate-400 mt-2">বাংলাদেশি গেমারদের জন্য প্রিমিয়াম গেমিং এক্সেসরিজ।</p>
+      <div class="flex gap-2 mt-4 text-xs font-bold">
+        <span class="px-3 py-1.5 rounded-md bg-[#e2136e] text-white">bKash</span>
+        <span class="px-3 py-1.5 rounded-md bg-[#f6921e] text-black">Nagad</span>
+        <span class="px-3 py-1.5 rounded-md bg-lime text-black">COD</span>
+      </div>
+    </div>
+    <div>
+      <div id="fh1" class="font-semibold mb-3">Quick Links</div>
+      <ul class="space-y-2 text-sm text-slate-400"><li><a class="hover:text-neon" href="#shop">সব প্রোডাক্ট</a></li><li><a class="hover:text-neon" href="#policies">পলিসি</a></li><li><a class="hover:text-neon" href="#" onclick="openCart();return false">আমার কার্ট</a></li></ul>
+    </div>
+    <div>
+      <div id="fh2" class="font-semibold mb-3">Support</div>
+      <p id="footInfo" class="text-sm text-slate-400 mb-3"></p>
+      <div class="flex flex-col gap-2 text-sm">
+        <a id="waLink" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg border border-lime/60 text-lime hover:bg-lime/10 w-fit">WhatsApp Support</a>
+        <a id="fbLink" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg border border-neon/60 text-neon hover:bg-neon/10 w-fit">Facebook Page</a>
+      </div>
+    </div>
+  </div>
+  <div class="text-center text-xs text-slate-500 border-t border-line py-4">© <span id="yr"></span> <span id="cpName"></span>. <span id="cpText">All rights reserved.</span> <button id="admBtn" onclick="openLogin()" class="ml-3 px-3 py-1 rounded-full border border-line hover:border-neon hover:text-neon transition">⚙ Admin Panel</button></div>
+</footer>
+
+<!-- CART DRAWER -->
+<div id="overlay" onclick="closeAll()" class="fixed inset-0 bg-black/70 z-50 hidden"></div>
+<aside id="cart" class="drawer fixed top-0 right-0 h-full w-full max-w-md bg-panel border-l border-line z-50 translate-x-full flex flex-col">
+  <div class="flex items-center justify-between p-4 border-b border-line"><h3 class="font-bold text-lg">🛒 আপনার কার্ট</h3><button onclick="closeAll()" class="text-2xl px-2" aria-label="Close">×</button></div>
+  <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+  <div class="p-4 border-t border-line space-y-3">
+    <div><label class="text-xs text-slate-400">ডেলিভারি এলাকা</label>
+      <select id="zoneCart" onchange="setZone(this.value)" class="field mt-1"><option value="60">ঢাকার ভিতরে — ৳60</option><option value="120">ঢাকার বাইরে — ৳120</option></select></div>
+    <div class="text-sm space-y-1"><div class="flex justify-between text-slate-400"><span>সাবটোটাল</span><span id="cSub"></span></div><div class="flex justify-between text-slate-400"><span>ডেলিভারি</span><span id="cShip"></span></div><div class="flex justify-between font-bold text-lg"><span>সর্বমোট</span><span id="cTot" class="text-lime"></span></div></div>
+    <button onclick="checkoutCart()" class="btn-neon w-full py-3 rounded-xl">অর্ডার করুন</button>
+  </div>
+</aside>
+
+<!-- CHECKOUT MODAL -->
+<div id="modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-3">
+  <div onclick="closeAll()" class="absolute inset-0 bg-black/75"></div>
+  <div class="relative bg-panel border border-line rounded-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-5">
+    <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-lg">📦 অর্ডার কনফার্ম করুন</h3><button onclick="closeAll()" class="text-2xl px-2" aria-label="Close">×</button></div>
+    <div id="sumBox" class="bg-bg border border-line rounded-xl p-3 text-sm space-y-1 mb-4"></div>
+    <form id="orderForm" class="space-y-3" onsubmit="submitOrder(event)">
+      <input id="fName" class="field" placeholder="আপনার নাম *" required>
+      <input id="fPhone" class="field" placeholder="ফোন নম্বর (01XXXXXXXXX) *" required inputmode="numeric" pattern="01[3-9][0-9]{8}" title="সঠিক বাংলাদেশি নম্বর দিন">
+      <textarea id="fAddr" class="field" rows="2" placeholder="সম্পূর্ণ ঠিকানা *" required></textarea>
+      <div class="grid grid-cols-2 gap-3">
+        <select id="fZone" class="field" onchange="setZone(this.value)"><option value="60">ঢাকার ভিতরে ৳60</option><option value="120">ঢাকার বাইরে ৳120</option></select>
+        <select id="fPay" class="field"><option>Cash on Delivery</option><option>bKash</option><option>Nagad</option></select>
+      </div>
+      <p id="payInfo" class="text-xs text-slate-400">"WhatsApp-এ অর্ডার পাঠান" চাপলে অর্ডারের সব তথ্য সহ WhatsApp খুলবে। bKash/Nagad বাছাই করলে পেমেন্টের নির্দেশনা WhatsApp-এ জানানো হবে।</p>
+      <button class="btn-neon w-full py-3 rounded-xl">WhatsApp-এ অর্ডার পাঠান</button>
+    </form>
+  </div>
+</div>
+
+<div id="detail" class="fixed inset-0 z-[60] hidden items-center justify-center p-3">
+  <div onclick="closeAll()" class="absolute inset-0 bg-black/75"></div>
+  <div id="detailBox" class="relative bg-panel border border-line rounded-2xl w-full max-w-3xl max-h-[92vh] overflow-y-auto"></div>
+</div>
+
+<div id="admin" class="fixed inset-0 z-[80] hidden bg-bg overflow-y-auto">
+  <div id="login" class="min-h-full flex items-center justify-center p-4">
+    <form onsubmit="doLogin(event)" class="card w-full max-w-sm space-y-3" style="box-shadow:0 0 40px rgb(var(--c-neon)/.15)">
+      <div class="text-center text-4xl">🔐</div><h3 class="font-bold text-lg text-center">Admin Login</h3>
+      <input id="pw" type="password" class="field" placeholder="Password" autocomplete="current-password" required>
+      <p id="pwErr" class="text-red-400 text-sm hidden"></p>
+      <div class="flex gap-2"><button class="btn-neon flex-1 py-2 rounded-lg">Login</button><button type="button" onclick="closeAdmin()" class="btn2">Cancel</button></div>
+    </form>
+  </div>
+  <div id="panel" class="hidden min-h-full flex-col md:flex-row">
+    <aside class="md:w-56 md:shrink-0 md:h-screen md:sticky md:top-0 bg-panel border-b md:border-b-0 md:border-r border-line p-3">
+      <div class="font-brand text-sm mb-3 text-neon">⚙ ADMIN PANEL</div>
+      <nav id="anav" class="flex md:flex-col gap-1 overflow-x-auto text-sm"></nav>
+      <button onclick="doLogout()" class="btn2 w-full mt-3">Logout</button>
+      <button onclick="closeAdmin()" class="btn2 w-full mt-2">View site</button>
+    </aside>
+    <main id="amain" class="flex-1 p-4 pb-24 max-w-5xl"></main>
+  </div>
+</div>
+<div id="cfm" class="fixed inset-0 z-[95] hidden items-center justify-center p-4 bg-black/75"><div class="card max-w-sm w-full"><p id="cfmMsg" class="mb-4"></p><div class="flex gap-2 justify-end"><button class="btn2" onclick="cfmDone(0)">Cancel</button><button class="btn-neon px-4 py-2 rounded-lg" onclick="cfmDone(1)">Confirm</button></div></div></div>
+
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[90] bg-lime text-black font-semibold px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition"></div>
+
+<script>
+/* ===== CONFIG: change these ===== */
+const WA_NUMBER = "8801XXXXXXXXX";   // country code + number, no + or spaces
+const FB_URL = "https://facebook.com/yourpage";
+const SAVED_CFG = null; // ← Admin panel-এর "লাইভ সাইটের কোড কপি" দিয়ে পাওয়া কোড দিয়ে এই লাইনটি বদলে দিন
+/* ================================ */
+const IMG = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=600&q=70`;
+const DEFAULT_PRODUCTS = [
+ {id:1,name:"MEMO CX07 Gaming Cooler",cat:"Gaming Coolers",price:1290,old:1690,stock:true,tag:"New",img:IMG("photo-1587202372775-e229f172b9d7"),emoji:"🧊"},
+ {id:2,name:"Plextone G20 Earphones",cat:"Earphones",price:1450,old:1890,stock:true,img:IMG("photo-1505740420928-5e560c06d30e"),emoji:"🎧"},
+ {id:3,name:"Luminous Finger Sleeves (Pair)",cat:"Finger Sleeves",price:199,old:299,stock:true,tag:"New",img:IMG("photo-1511512578047-dfb367046420"),emoji:"🧤"},
+ {id:4,name:"Pro RGB Gaming Headset",cat:"Headsets",price:2490,old:3290,stock:true,img:IMG("photo-1593305841991-05c297ba4575"),emoji:"🎮"},
+ {id:5,name:"L1R1 Mobile Triggers (PUBG)",cat:"Triggers & Gloves",price:349,old:499,stock:true,img:IMG("photo-1606144042614-b2417e99c4e3"),emoji:"🎯"},
+ {id:6,name:"Anti-Sweat Gaming Gloves",cat:"Triggers & Gloves",price:279,old:349,stock:false,img:IMG("photo-1560253023-3ec5d502959f"),emoji:"🥊"},
+ {id:7,name:"RGB Mouse Pad XL",cat:"Accessories",price:690,old:990,stock:true,tag:"New",img:IMG("photo-1616588589676-62b3bd4ff6d2"),emoji:"🖱️"},
+ {id:8,name:"Semi-Conductor Phone Cooler",cat:"Gaming Coolers",price:990,old:1490,stock:true,img:IMG("photo-1598550476439-6847785fcea6"),emoji:"❄️"},
+ {id:9,name:"Type-C Gaming Earbuds",cat:"Earphones",price:590,old:790,stock:true,img:IMG("photo-1572569511254-d8f925fe2cbb"),emoji:"🎵"},
+ {id:10,name:"Pro Grip Finger Sleeves (6pcs)",cat:"Finger Sleeves",price:349,old:449,stock:true,img:IMG("photo-1542751371-adc38448a05e"),emoji:"👆"}
+];
+let CATS = ["All","Finger Sleeves","Gaming Coolers","Earphones","Headsets","Triggers & Gloves","Accessories"];
+let cat = "All", cart = [], zone = 60, orderItems = [];
+const $ = id => document.getElementById(id);
+const tk = n => "৳" + n.toLocaleString("en-US");
+const disc = p => p.old>p.price ? Math.round((1 - p.price / p.old) * 100) : 0;
+
+try { cart = JSON.parse(localStorage.getItem("fg_cart")) || []; zone = +localStorage.getItem("fg_zone") || 60; } catch(e){ cart = []; }
+const save = () => { try { localStorage.setItem("fg_cart", JSON.stringify(cart)); localStorage.setItem("fg_zone", zone); } catch(e){} };
+
+function renderTabs(){
+  $("tabs").innerHTML = CATS.concat(cat==="New"||cat==="Offers"?[cat]:[]).map(c =>
+   `<button data-c="${esc(c)}" onclick="setCat(this.dataset.c)" class="whitespace-nowrap px-4 py-2 rounded-full border text-sm transition ${c===cat?'bg-neon/15 border-neon text-neon shadow-[0_0_14px_rgba(0,229,255,.4)]':'border-line text-slate-300 hover:border-violet'}">${esc(c==="New"?C.navNew:c)}</button>`).join("");
+}
+function setCat(c){ cat = c; renderTabs(); renderProducts(); }
+function renderProducts(){
+  const q = $("search").value.trim().toLowerCase();
+  const list = PRODUCTS.filter(p =>
+    (cat==="All" || (cat==="New" ? p.tag==="New" : cat==="Offers" ? disc(p)>=25 : p.cat===cat)) &&
+    (!q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q)));
+  $("empty").classList.toggle("hidden", list.length>0);
+  $("grid").innerHTML = list.map(p => `
+   <article class="bg-panel border border-line rounded-2xl overflow-hidden flex flex-col glow transition">
+     <div class="relative aspect-square bg-bg cursor-pointer" onclick="openDetail(${p.id})">
+       ${thumb(p,"w-full h-full object-cover "+(p.stock?"":"opacity-40"))}
+       ${C.showDisc&&disc(p)?`<span class="absolute top-2 left-2 text-xs font-bold px-2 py-1 rounded-md bg-red-500 text-white">-${disc(p)}%</span>`:""}
+       ${C.showNew&&p.tag?`<span class="absolute top-2 right-2 text-xs font-bold px-2 py-1 rounded-md bg-violet text-white">New Drop</span>`:""}
+       ${p.badge||p.feat?`<span class="absolute top-10 right-2 text-xs font-bold px-2 py-1 rounded-md bg-amber-400 text-black">${esc(p.badge||"★ Featured")}</span>`:""}
+       ${C.showStock?`<span class="absolute bottom-2 left-2 text-xs font-semibold px-2 py-1 rounded-md ${p.stock?'bg-lime/90 text-black':'bg-slate-700 text-slate-200'}">${p.stock?"In Stock":"Stock Out"}</span>`:""}
+     </div>
+     <div class="p-3 sm:p-4 flex flex-col flex-1">
+       <div class="text-xs text-slate-500">${esc(p.cat)}</div>
+       <h3 onclick="openDetail(${p.id})" class="font-semibold text-sm sm:text-base leading-snug mt-0.5 flex-1 cursor-pointer hover:text-neon">${esc(p.name)}</h3>
+       <div class="mt-2 flex items-baseline gap-2"><span class="text-lg font-bold text-neon">${tk(p.price)}</span>${C.showOld&&p.old>p.price?`<span class="text-xs text-slate-500 line-through">${tk(p.old)}</span>`:""}</div>
+       <div class="mt-3 grid gap-2">
+         ${C.showCart?`<button ${p.stock?"":"disabled"} onclick="addToCart(${p.id})" class="py-2 rounded-lg border border-neon text-neon text-sm hover:bg-neon/10 transition disabled:opacity-40 disabled:cursor-not-allowed">কার্টে যোগ করুন</button>`:""}
+         ${C.showDirect?`<button ${p.stock?"":"disabled"} onclick="quickOrder(${p.id})" class="btn-neon py-2 rounded-lg text-sm disabled:opacity-40 disabled:cursor-not-allowed">সরাসরি অর্ডার</button>`:""}
+       </div>
+     </div>
+   </article>`).join("");
+}
+
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.style.opacity=1; clearTimeout(t._h); t._h=setTimeout(()=>t.style.opacity=0,1800); }
+function addToCart(id){
+  const it = cart.find(i=>i.id===id); it ? it.qty++ : cart.push({id,qty:1});
+  save(); renderCart(); toast("কার্টে যোগ হয়েছে ✓");
+}
+function changeQty(id,d){ const it=cart.find(i=>i.id===id); if(!it) return; it.qty+=d; if(it.qty<1) cart=cart.filter(i=>i.id!==id); save(); renderCart(); }
+function removeItem(id){ cart=cart.filter(i=>i.id!==id); save(); renderCart(); }
+const prod = id => PRODUCTS.find(p=>p.id===id);
+const subtotal = items => items.reduce((s,i)=>s+prod(i.id).price*i.qty,0);
+
+function renderCart(){
+  $("cartCount").textContent = cart.reduce((s,i)=>s+i.qty,0);
+  $("cartItems").innerHTML = cart.length ? cart.map(i=>{const p=prod(i.id);return `
+    <div class="flex gap-3 bg-bg border border-line rounded-xl p-2">
+      <img src="${esc(safeUrl(p.img,1))}" alt="" class="w-16 h-16 rounded-lg object-cover" onerror="this.style.visibility='hidden'">
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-semibold truncate">${esc(p.name)}</div>
+        <div class="text-neon text-sm">${tk(p.price)}</div>
+        <div class="flex items-center gap-2 mt-1">
+          <button onclick="changeQty(${p.id},-1)" class="w-7 h-7 rounded border border-line hover:border-neon" aria-label="Decrease">−</button>
+          <span class="w-6 text-center text-sm">${i.qty}</span>
+          <button onclick="changeQty(${p.id},1)" class="w-7 h-7 rounded border border-line hover:border-neon" aria-label="Increase">+</button>
+          <button onclick="removeItem(${p.id})" class="ml-auto text-xs text-red-400 hover:text-red-300">মুছুন</button>
+        </div>
+      </div>
+    </div>`}).join("") : `<p class="text-center text-slate-400 py-16">কার্ট খালি। পছন্দের প্রোডাক্ট যোগ করুন।</p>`;
+  const sub = subtotal(cart), ship = cart.length ? zone : 0;
+  $("cSub").textContent = tk(sub); $("cShip").textContent = tk(ship); $("cTot").textContent = tk(sub+ship);
+  $("zoneCart").value = zone; $("fZone").value = zone;
+}
+function setZone(v){ zone = +v; save(); renderCart(); if(!$("modal").classList.contains("hidden")) renderSummary(); }
+
+function openCart(){ $("overlay").classList.remove("hidden"); $("cart").classList.remove("translate-x-full"); }
+function closeAll(){ $("detail").classList.add("hidden"); $("detail").classList.remove("flex"); $("overlay").classList.add("hidden"); $("cart").classList.add("translate-x-full"); $("modal").classList.add("hidden"); $("modal").classList.remove("flex"); }
+function toggleMenu(){ $("mobMenu").classList.toggle("hidden"); }
+function openModal(items){
+  if(!items.length){ toast("কার্ট খালি!"); return; }
+  orderItems = items; renderSummary();
+  $("overlay").classList.add("hidden"); $("cart").classList.add("translate-x-full");
+  $("modal").classList.remove("hidden"); $("modal").classList.add("flex");
+}
+function checkoutCart(){ openModal(cart.map(i=>({...i}))); }
+function quickOrder(id){ openModal([{id,qty:1}]); }
+function renderSummary(){
+  const sub = subtotal(orderItems);
+  $("sumBox").innerHTML = orderItems.map(i=>{const p=prod(i.id);return `<div class="flex justify-between gap-2"><span>${esc(p.name)} × ${i.qty}</span><span>${tk(p.price*i.qty)}</span></div>`}).join("")
+   + `<div class="flex justify-between text-slate-400 border-t border-line pt-1 mt-1"><span>ডেলিভারি</span><span>${tk(zone)}</span></div><div class="flex justify-between font-bold text-lime"><span>সর্বমোট</span><span>${tk(sub+zone)}</span></div>`;
+  $("fZone").value = zone;
+}
+function submitOrder(e){
+  e.preventDefault();
+  const sub=subtotal(orderItems), total=sub+zone, pay=$("fPay").value, name=$("fName").value.trim(), phone=$("fPhone").value.trim(), addr=$("fAddr").value.trim();
+  // Save order history (browser-local only; WhatsApp is the real order channel)
+  const ord={id:"FG-"+Date.now().toString(36).toUpperCase(),date:new Date().toISOString(),name,phone,addr,items:orderItems.map(i=>{const p=prod(i.id);return{name:p.name,qty:i.qty,price:p.price}}),sub,ship:zone,total,pay,status:"Pending"};
+  ORD.unshift(ord); Store.set("fg_orders",ORD); Backend.saveOrder(ord);
+  const lines=ord.items.map((i,n)=>`${n+1}. ${i.name} x${i.qty} = ${tk(i.price*i.qty)}`).join("\n");
+  const msg=`🎮 *নতুন অর্ডার - ${C.siteName}*\n🆔 ${ord.id}\n\n👤 নাম: ${name}\n📞 ফোন: ${phone}\n📍 ঠিকানা: ${addr}\n\n🛒 *আইটেম:*\n${lines}\n\nসাবটোটাল: ${tk(sub)}\nডেলিভারি (${zone===C.feeIn?"ঢাকার ভিতরে":"ঢাকার বাইরে"}): ${tk(zone)}\n💰 *সর্বমোট: ${tk(total)}*\n\n💳 পেমেন্ট: ${pay}`;
+  window.open(`https://wa.me/${C.wa}?text=${encodeURIComponent(msg)}`, "_blank");
+  if(orderItems.length===cart.length && orderItems.every(o=>cart.some(c=>c.id===o.id && c.qty===o.qty))){ cart=[]; save(); renderCart(); }
+  $("orderForm").reset(); closeAll(); toast("অর্ডার পাঠানো হচ্ছে ✓");
+}
+
+$("yr").textContent = new Date().getFullYear();
+
+/* ===== Config, Detail popup, Admin ===== */
+/* SECURITY NOTE: this password check runs in the browser. Anyone can read/alter this file or localStorage,
+   so it only hides the admin UI from casual visitors. It is NOT server-side authentication. */
+
+/* ----- 1. Storage + BACKEND ADAPTER -----
+   Everything is stored in this browser's localStorage. Backend below is a no-op stub:
+   replace its methods with Supabase/Firebase/own-API calls later. No cloud sync exists today. */
+const Store={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const Backend={async loadConfig(){return null},async saveConfig(c){},async saveOrder(o){}};
+
+/* ----- 2. Defaults (read from current page so design stays identical) ----- */
+const D0=s=>document.querySelector(s).textContent.trim();
+const TXT=[["heroBadge","#heroBadge"],["heroSub","#heroSub"],["ctaMain","#heroBtns a:first-child"],["ctaHot","#heroBtns a:last-child"],["shopTitle","#shop h2"],["emptyMsg","#empty"],["cartTitle","#cart h3"],["checkoutTitle","#modal h3"],
+["navCat","#hdr nav a:nth-child(1),#mobMenu a:nth-child(1)"],["navNew","#hdr nav a:nth-child(2),#mobMenu a:nth-child(2)"],["navOff","#hdr nav a:nth-child(3),#mobMenu a:nth-child(3)"],["navPol","#hdr nav a:nth-child(4),#mobMenu a:nth-child(4)"],["navSup","#hdr nav a:nth-child(5),#mobMenu a:nth-child(5)"],
+["st1","#st1"],["sl1","#st1+div"],["st2","#st2"],["sl2","#st2+div"],["st3","#st3"],["sl3","#st3+div"],["polTitle","#policies h2"],["about","#about"],["fh1","#fh1"],["fh2","#fh2"],
+["ql1","#footer li:nth-child(1) a"],["ql2","#footer li:nth-child(2) a"],["ql3","#footer li:nth-child(3) a"],["waBtn","#waLink"],["fbBtn","#fbLink"],["cpText","#cpText"],["footInfo","#footInfo"],["payNote","#payInfo"]];
+const DEF={siteName:"FLICK GEAR",tag:"BD",title:document.title,wa:WA_NUMBER,fb:FB_URL,heroT1:"বাংলাদেশের সেরা",heroT2:"প্রিমিয়াম গেমিং গিয়ার",feeIn:60,feeOut:120,delTime:"ঢাকার ভেতরে ১–২ কার্যদিবস, ঢাকার বাইরে ২–৪ কার্যদিবস",searchPh:$("search").placeholder,
+ codOn:true,bkOn:true,ngOn:true,secHero:true,secStats:true,secShop:true,secPol:true,secFoot:true,secAdm:true,cA:"#00e5ff",cB:"#8b5cf6",cBg:"#0b0f19",cPanel:"#121829",btnStyle:"rounded",glow:100,colsD:4,colsM:2,
+ showOld:true,showDisc:true,showStock:true,showNew:true,showCart:true,showDirect:true,pw:"9b150ad5f2f99be656552bcaaa5d62d104bc142dc8bebcea5e71fb28305bb828",products:DEFAULT_PRODUCTS,cats:CATS.slice(1)};
+TXT.forEach(([k,s])=>DEF[k]=D0(s));
+document.querySelectorAll(".acc").forEach((el,i)=>{const t=el.querySelector("button").firstChild.textContent.trim(),sp=t.indexOf(" ");DEF["polI"+(i+1)]=t.slice(0,sp);DEF["polT"+(i+1)]=t.slice(sp+1);DEF["pol"+(i+1)]=el.querySelector(".acc-body").textContent.trim();});
+
+/* ----- 3. Validation / sanitizing (also used for imports) ----- */
+const esc=s=>String(s??"").replace(/[&<>"'`]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","`":"&#96;"}[c]));
+const isUrl=(u,img)=>{u=String(u||"").trim();return !u||/^https?:\/\//i.test(u)||(img&&/^data:image\/(png|jpe?g|webp|gif);base64,/i.test(u))};
+const safeUrl=(u,img)=>isUrl(u,img)?String(u||"").trim():"";
+const ST=["Pending","Confirmed","Delivered","Cancelled"];
+const normOrd=o=>o&&o.id?{id:String(o.id).replace(/[^\w-]/g,""),date:o.date,name:String(o.name||""),phone:String(o.phone||""),addr:String(o.addr||""),items:(Array.isArray(o.items)?o.items:[]).map(i=>({name:String((i||{}).name||""),qty:+(i||{}).qty||1,price:+(i||{}).price||0})),sub:+o.sub||0,ship:+o.ship||0,total:+o.total||0,pay:String(o.pay||""),status:ST.includes(o.status)?o.status:"Pending"}:null;
+function build(...s){
+  const c=Object.assign({},DEF,...s.map(x=>x&&typeof x==="object"?x:{}));c.pw=DEF.pw;
+  ["feeIn","feeOut"].forEach(k=>c[k]=Math.max(0,+c[k]||0));
+  c.colsD=Math.min(6,Math.max(1,+c.colsD||4));c.colsM=Math.min(3,Math.max(1,+c.colsM||2));c.glow=Math.min(200,Math.max(0,+c.glow||0));
+  ["cA","cB","cBg","cPanel"].forEach(k=>{if(!/^#[0-9a-f]{6}$/i.test(c[k]))c[k]=DEF[k]});
+  if(!["rounded","pill","square"].includes(c.btnStyle))c.btnStyle="rounded";
+  c.wa=String(c.wa).replace(/\D/g,"")||DEF.wa; c.fb=safeUrl(c.fb)||DEF.fb;
+  c.cats=(Array.isArray(c.cats)?c.cats:DEF.cats).map(x=>String(x).trim()).filter(Boolean);
+  c.products=(Array.isArray(c.products)?c.products:DEF.products).filter(p=>p&&p.name).map((p,i)=>({id:+p.id||i+1,name:String(p.name),cat:String(p.cat||""),price:+p.price||0,old:+p.old||0,stock:!!p.stock,tag:p.tag?"New":"",feat:!!p.feat,off:!!p.off,badge:String(p.badge||""),img:safeUrl(p.img,1),alt:String(p.alt||""),desc:String(p.desc||""),specs:String(p.specs||""),emoji:String(p.emoji||"🎮")}));
+  return c;
+}
+const SAVED=Store.get("fg_cfg2",null);
+let C=build(SAVED_CFG,SAVED), PRODUCTS=[];
+let ORD=Store.get("fg_orders",[]); ORD=Array.isArray(ORD)?ORD.map(normOrd).filter(Boolean):[];
+
+/* ----- 4. Apply config to the live site ----- */
+const thumb=(p,cls)=>{const u=safeUrl(p.img,1);return u?`<img src="${esc(u)}" alt="${esc(p.alt||p.name)}" loading="lazy" class="${cls}" data-e="${esc(p.emoji)}" onerror="fbImg(this)">`:`<div class="w-full h-full flex items-center justify-center text-4xl">${esc(p.emoji)}</div>`};
+function fbImg(im){const d=document.createElement("div");d.className="w-full h-full flex items-center justify-center text-6xl";d.textContent=im.dataset.e||"🎮";im.replaceWith(d)}
+const rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)).join(" ");
+function applyCfg(){
+  PRODUCTS=C.products.filter(p=>!p.off); cart=cart.filter(i=>prod(i.id)); CATS=["All",...C.cats];
+  if(cat!=="New"&&cat!=="Offers"&&!CATS.includes(cat))cat="All";
+  const [a,...b]=C.siteName.trim().split(" ");
+  const lg=esc(a)+(b.length?`<span class="text-neon"> ${esc(b.join(" "))}</span>`:"");
+  $("logo").innerHTML=lg; $("flogo").innerHTML=lg; $("cpName").textContent=C.siteName; document.title=C.title;
+  $("tag").textContent=C.tag; $("tag").style.display=C.tag?"":"none";
+  TXT.forEach(([k,s])=>document.querySelectorAll(s).forEach(el=>el.textContent=C[k]));
+  $("heroTitle").innerHTML=esc(C.heroT1.trim())+" "+`<span class="bg-gradient-to-r from-neon via-violet to-lime bg-clip-text text-transparent">${esc(C.heroT2)}</span>`;
+  $("search").placeholder=$("searchM").placeholder=C.searchPh; $("footInfo").style.display=C.footInfo?"":"none";
+  document.querySelectorAll(".acc").forEach((el,i)=>{el.querySelector(".acc-body").textContent=C["pol"+(i+1)];el.querySelector("button").firstChild.textContent=C["polI"+(i+1)]+" "+C["polT"+(i+1)]});
+  $("waLink").href=`https://wa.me/${C.wa}`; $("fbLink").href=C.fb;
+  const zo=`<option value="${C.feeIn}">ঢাকার ভিতরে — ${tk(C.feeIn)}</option><option value="${C.feeOut}">ঢাকার বাইরে — ${tk(C.feeOut)}</option>`;
+  $("zoneCart").innerHTML=zo; $("fZone").innerHTML=zo; if(zone!=C.feeIn&&zone!=C.feeOut)zone=C.feeIn;
+  const pays=[["Cash on Delivery","codOn"],["bKash","bkOn"],["Nagad","ngOn"]].filter(([,k])=>C[k]);
+  $("fPay").innerHTML=(pays.length?pays:[["Cash on Delivery"]]).map(([n])=>`<option>${esc(n)}</option>`).join("");
+  document.querySelectorAll("#footer .flex.gap-2 span").forEach((el,i)=>el.style.display=C[["bkOn","ngOn","codOn"][i]]?"":"none");
+  [["hero","secHero"],["stats","secStats"],["shop","secShop"],["policies","secPol"],["footer","secFoot"],["admBtn","secAdm"]].forEach(([id,k])=>$(id).style.display=C[k]?"":"none");
+  const r=document.documentElement.style; r.setProperty("--c-neon",rgb(C.cA)); r.setProperty("--c-violet",rgb(C.cB)); r.setProperty("--c-bg",rgb(C.cBg)); r.setProperty("--c-panel",rgb(C.cPanel)); r.setProperty("--gi",C.glow/100); document.body.dataset.btn=C.btnStyle;
+  $("dynCss").textContent=`#grid{grid-template-columns:repeat(${C.colsM},minmax(0,1fr))}@media(min-width:1024px){#grid{grid-template-columns:repeat(${C.colsD},minmax(0,1fr))}}`;
+  save(); renderTabs(); renderProducts(); renderCart();
+}
+
+function openDetail(id){
+  const p=prod(id); if(!p) return; const off=p.stock?"":"disabled";
+  $("detailBox").innerHTML=`<button onclick="closeAll()" class="absolute top-2 right-3 z-10 text-2xl w-9 h-9 rounded-full bg-bg/80" aria-label="Close">×</button>
+  <div class="grid md:grid-cols-2"><div class="bg-bg aspect-square overflow-hidden md:rounded-l-2xl">${thumb(p,"w-full h-full object-cover")}</div>
+   <div class="p-5 flex flex-col gap-3"><div class="text-xs text-slate-400">${esc(p.cat)} ${p.badge?`· ${esc(p.badge)}`:""}</div>
+    <h3 class="text-xl font-bold leading-snug">${esc(p.name)}</h3>
+    <div class="flex items-baseline gap-2 flex-wrap"><span class="text-2xl font-bold text-neon">${tk(p.price)}</span>${C.showOld&&p.old>p.price?`<span class="text-sm text-slate-500 line-through">${tk(p.old)}</span>`:""}${C.showDisc&&disc(p)?`<span class="text-xs font-bold px-2 py-1 rounded-md bg-red-500 text-white">-${disc(p)}%</span>`:""}</div>
+    ${C.showStock?`<span class="w-fit text-xs font-semibold px-2 py-1 rounded-md ${p.stock?"bg-lime/90 text-black":"bg-slate-700"}">${p.stock?"In Stock":"Stock Out"}</span>`:""}
+    <p class="text-sm text-slate-300 leading-relaxed whitespace-pre-line">${esc(p.desc||"প্রিমিয়াম কোয়ালিটির গেমিং এক্সেসরিজ। সারা বাংলাদেশে ক্যাশ অন ডেলিভারি এবং ড্যামেজ পেলে রিপ্লেসমেন্ট সুবিধা।")}</p>
+    ${p.specs?`<ul class="text-xs text-slate-300 list-disc pl-4 space-y-1">${p.specs.split("\n").filter(Boolean).map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}
+    <ul class="text-xs text-slate-400 space-y-1">${C.codOn?"<li>✔ ক্যাশ অন ডেলিভারি</li>":""}<li>✔ ডেলিভারি চার্জ: ঢাকায় ${tk(C.feeIn)}, ঢাকার বাইরে ${tk(C.feeOut)}</li><li>✔ ${esc(C.delTime)}</li></ul>
+    <div class="grid grid-cols-2 gap-2 mt-auto pt-2">
+     ${C.showCart?`<button ${off} onclick="addToCart(${p.id})" class="py-2.5 rounded-lg border border-neon text-neon hover:bg-neon/10 transition disabled:opacity-40 disabled:cursor-not-allowed">কার্টে যোগ করুন</button>`:""}
+     ${C.showDirect?`<button ${off} onclick="closeAll();quickOrder(${p.id})" class="btn-neon py-2.5 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed">সরাসরি অর্ডার</button>`:""}
+    </div></div></div>`;
+  $("detail").classList.remove("hidden"); $("detail").classList.add("flex");
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
+
+/* ===== ADMIN ===== */
+let tab="dash",dirty=false,editing=null,authed=false,idle,fails=0,lockUntil=0,pq="",pc="",psort="new",oq="",cfmFn=null;
+const TABS=[["dash","📊 Dashboard"],["prod","🛍 Products"],["cat","🗂 Categories"],["web","✏ Website"],["del","🚚 Delivery"],["pay","💳 Payments"],["ord","📦 Orders"],["bak","💾 Backup"],["set","⚙ Settings"]];
+/* Field schema: "key|Label|type" (type: t=textarea n=number b=checkbox c=color s:a,b=select) */
+const CARDS={
+ web:[["Branding & Hero","siteName|Website name;tag|Logo tag;title|Browser tab title;heroBadge|Hero badge;heroT1|Hero title (plain part);heroT2|Hero title (highlight);heroSub|Hero subtitle|t;ctaMain|Main button text;ctaHot|Hot Deals button text"],
+  ["Labels","shopTitle|Shop section title;searchPh|Search placeholder;emptyMsg|Empty product message|t;cartTitle|Cart title;checkoutTitle|Checkout title;navCat|Nav: Categories;navNew|Nav: New Drops;navOff|Nav: Offers;navPol|Nav: Policies;navSup|Nav: Support"],
+  ["Trust / Statistics","st1|Value 1;sl1|Label 1;st2|Value 2;sl2|Label 2;st3|Value 3;sl3|Label 3"],
+  ["Policies","polTitle|Section title;polI1|Icon 1;polT1|Title 1;pol1|Description 1|t;polI2|Icon 2;polT2|Title 2;pol2|Description 2|t;polI3|Icon 3;polT3|Title 3;pol3|Description 3|t"],
+  ["Footer","about|Footer description|t;fh1|Heading: Quick Links;ql1|Link 1;ql2|Link 2;ql3|Link 3;fh2|Heading: Support;waBtn|WhatsApp button text;fbBtn|Facebook button text;footInfo|Footer contact info / support text|t;cpText|Copyright text"]],
+ del:[["Delivery","feeIn|Inside Dhaka fee (৳)|n;feeOut|Outside Dhaka fee (৳)|n;delTime|Delivery time text|t"]],
+ pay:[["Payment methods (no gateway — instructions only)","codOn|Cash on Delivery|b;bkOn|bKash|b;ngOn|Nagad|b;payNote|Payment instructions shown at checkout|t"]],
+ set:[["Contact","wa|WhatsApp number (8801XXXXXXXXX);fb|Facebook page URL (https://…)"],
+  ["Section visibility (if Footer is hidden, open your-site/#admin)","secHero|Hero|b;secStats|Statistics|b;secShop|Shop|b;secPol|Policies|b;secFoot|Footer|b;secAdm|Admin button|b"],
+  ["Theme","cA|Primary accent|c;cB|Secondary accent|c;cBg|Background|c;cPanel|Panel|c;btnStyle|Button style|s:rounded,pill,square;glow|Glow intensity (0–200)|n"],
+  ["Product display","colsD|Products per row (desktop 1-6)|n;colsM|Products per row (mobile 1-3)|n;showOld|Old price|b;showDisc|Discount badge|b;showStock|Stock badge|b;showNew|New badge|b;showCart|Add to Cart button|b;showDirect|Direct Order button|b"]]};
+const R={}, H=t=>`<h2 class="text-xl font-bold mb-4">${t}</h2>`;
+function fld(f){const[k,l,t]=f.split("|"),v=C[k]??"",lab=`<span class="text-xs text-slate-400">${l}</span>`;
+ if(t==="b")return `<label class="flex items-center gap-2 text-sm"><input type="checkbox" data-k="${k}" ${v?"checked":""}> ${l}</label>`;
+ if(t==="t")return `<label class="sm:col-span-2 block">${lab}<textarea data-k="${k}" rows="3" class="field mt-1">${esc(v)}</textarea></label>`;
+ if(t==="c")return `<label class="block">${lab}<input type="color" data-k="${k}" value="${esc(v)}" class="field mt-1 h-10 p-1"></label>`;
+ if(t&&t[0]==="s")return `<label class="block">${lab}<select data-k="${k}" class="field mt-1">${t.slice(2).split(",").map(o=>`<option ${o===v?"selected":""}>${o}</option>`).join("")}</select></label>`;
+ return `<label class="block">${lab}<input data-k="${k}" ${t==="n"?'type="number" min="0"':""} value="${esc(v)}" class="field mt-1"></label>`}
+["web","del","pay","set"].forEach(t=>R[t]=()=>H(TABS.find(x=>x[0]===t)[1])+CARDS[t].map(([h,f])=>`<div class="card mb-4"><h3 class="font-bold mb-3">${h}</h3><div class="grid sm:grid-cols-2 gap-3">${f.split(";").map(fld).join("")}</div></div>`).join("")+`<button onclick="saveTab()" class="btn-neon px-5 py-2 rounded-lg">Save</button>`);
+function saveTab(){const u={};document.querySelectorAll("#amain [data-k]").forEach(el=>{const k=el.dataset.k;u[k]=el.type==="checkbox"?el.checked:el.type==="number"?+el.value:el.value.trim()});
+ if(u.fb&&!/^https?:\/\//i.test(u.fb))return toast("Facebook URL must start with https://");
+ C=build(C,u);commit()}
+function persist(){const ok=Store.set("fg_cfg2",C);if(!ok)toast("⚠ Browser storage full — use image URLs or smaller images");else{dirty=false;Backend.saveConfig(C)}return ok}
+function commit(){if(persist()){applyCfg();toast("✓ Saved successfully");drawAdmin()}}
+
+/* --- confirm modal, login/session --- */
+function ask(m,fn){cfmFn=fn;$("cfmMsg").textContent=m;$("cfm").classList.remove("hidden");$("cfm").classList.add("flex")}
+function cfmDone(y){$("cfm").classList.add("hidden");$("cfm").classList.remove("flex");const f=cfmFn;cfmFn=null;if(y&&f)f()}
+window.onbeforeunload=e=>{if(dirty){e.preventDefault();e.returnValue=""}};
+function openLogin(){$("admin").classList.remove("hidden");document.body.style.overflow="hidden";if(authed)return;$("login").classList.remove("hidden");$("panel").classList.add("hidden");$("panel").classList.remove("flex");$("pw").value="";$("pwErr").classList.add("hidden");setTimeout(()=>$("pw").focus(),50)}
+function closeAdmin(){if(dirty)return ask("Unsaved changes will be lost. Close anyway?",()=>{dirty=false;closeAdmin()});$("admin").classList.add("hidden");document.body.style.overflow=""}
+function doLogout(m){authed=false;dirty=false;editing=null;clearTimeout(idle);$("panel").classList.add("hidden");$("panel").classList.remove("flex");closeAdmin();toast(typeof m==="string"?m:"Logged out")}
+const bump=()=>{clearTimeout(idle);idle=setTimeout(()=>doLogout("Session expired"),9e5)};  // auto-logout after 15 min idle; session is memory-only so refresh logs out
+async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function doLogin(e){e.preventDefault();const er=$("pwErr");
+ if(Date.now()<lockUntil){er.textContent="Too many attempts. Wait 30 seconds.";er.classList.remove("hidden");return}
+ let ok=false;try{ok=(await sha($("pw").value))===C.pw}catch(_){}
+ if(!ok){if(++fails>=5){lockUntil=Date.now()+3e4;fails=0}er.textContent="Wrong password. Please try again.";er.classList.remove("hidden");return}
+ fails=0;authed=true;$("login").classList.add("hidden");$("panel").classList.remove("hidden");$("panel").classList.add("flex");bump();tab="dash";drawAdmin()}
+function go(t){const run=()=>{dirty=false;editing=null;tab=t;drawAdmin()};dirty?ask("You have unsaved changes. Leave without saving?",run):run()}
+function drawAdmin(){$("anav").innerHTML=TABS.map(([k,l])=>`<button onclick="go('${k}')" class="tabb ${k===tab?"on":""}">${l}</button>`).join("");$("amain").innerHTML=R[tab]();$("admin").scrollTo(0,0)}
+$("amain").addEventListener("input",e=>{if(e.target.dataset.k||e.target.dataset.p)dirty=true});
+$("admin").addEventListener("click",bump);$("admin").addEventListener("keydown",bump);
+
+/* --- Dashboard --- */
+R.dash=()=>{const ps=C.products,n=ps.filter(p=>p.stock).length;
+ return H("Dashboard")+`<div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-4">${[["Total products",ps.length],["In stock",n],["Out of stock",ps.length-n],["Categories",C.cats.length],["Orders (this browser)",ORD.length],["Pending orders",ORD.filter(o=>o.status==="Pending").length]].map(([a,b])=>`<div class="card"><div class="text-2xl font-bold text-neon">${b}</div><div class="text-xs text-slate-400">${a}</div></div>`).join("")}</div>
+ <div class="flex flex-wrap gap-2 mb-6"><button class="btn-neon px-4 py-2 rounded-lg" onclick="tab='prod';pNew()">+ Quick add product</button><button class="btn2" onclick="go('web')">✏ Edit website</button></div>
+ <h3 class="font-bold mb-2">Recent orders</h3><div class="space-y-2">${ORD.slice(0,5).map(o=>`<div class="card text-sm flex justify-between"><span>${esc(o.id)} · ${esc(o.name)}</span><span>${tk(o.total)} · ${esc(o.status)}</span></div>`).join("")||'<p class="text-slate-400 text-sm">No orders recorded in this browser yet.</p>'}</div>`};
+
+/* --- Products --- */
+const nextId=()=>Math.max(0,...C.products.map(p=>p.id))+1;
+const prow=p=>`<div class="card flex gap-3 items-center ${p.off?"opacity-50":""}"><div class="w-14 h-14 rounded-lg overflow-hidden bg-bg shrink-0">${thumb(p,"w-full h-full object-cover")}</div><div class="flex-1 min-w-0"><div class="font-semibold truncate">${esc(p.name)}</div><div class="text-xs text-slate-400">#${p.id} · ${esc(p.cat)} · ${tk(p.price)}${disc(p)?` · -${disc(p)}%`:""} · ${p.stock?"In stock":"Stock out"}${p.tag?" · New":""}${p.feat?" · Featured":""}${p.off?" · Disabled":""}</div><div class="flex flex-wrap gap-1 mt-2">${[["edit","Edit"],["dup","Duplicate"],["off",p.off?"Enable":"Disable"],["stock",p.stock?"Mark stock out":"Mark in stock"],["tag",p.tag?"Unmark New":"Mark New"],["del","Delete"]].map(([a,l])=>`<button class="btn2 ${a==="del"?"text-red-400":""}" onclick="pAct('${a}',${p.id})">${l}</button>`).join("")}</div></div></div>`;
+function plist(){const q=pq.toLowerCase();return C.products.filter(p=>(!pc||p.cat===pc)&&(!q||(p.name+" "+p.id).toLowerCase().includes(q))).sort({new:(a,b)=>b.id-a.id,name:(a,b)=>a.name.localeCompare(b.name),lo:(a,b)=>a.price-b.price,hi:(a,b)=>b.price-a.price}[psort]).map(prow).join("")||'<p class="text-slate-400">No products found.</p>'}
+const refList=()=>{$("plist").innerHTML=plist()};
+R.prod=()=>editing?pForm():H("Products")+`<div class="flex flex-wrap gap-2 mb-4"><input class="field flex-1 min-w-[9rem]" placeholder="Search name / ID" value="${esc(pq)}" oninput="pq=this.value;refList()"><select class="field w-auto" onchange="pc=this.value;refList()"><option value="">All categories</option>${C.cats.map(c=>`<option ${c===pc?"selected":""}>${esc(c)}</option>`).join("")}</select><select class="field w-auto" onchange="psort=this.value;refList()">${[["new","Newest"],["name","Name"],["lo","Price ↑"],["hi","Price ↓"]].map(([v,l])=>`<option value="${v}" ${v===psort?"selected":""}>${l}</option>`).join("")}</select><button class="btn-neon px-4 py-2 rounded-lg" onclick="pNew()">+ Add product</button></div><div id="plist" class="space-y-3">${plist()}</div>`;
+function pAct(a,id){const i=C.products.findIndex(p=>p.id===id),p=C.products[i];if(!p)return;
+ if(a==="edit"){editing={...p,_o:p.id};return drawAdmin()}
+ if(a==="del")return ask(`Delete "${p.name}"? This cannot be undone.`,()=>{C.products.splice(i,1);commit()});
+ if(a==="dup"){C.products.splice(i+1,0,{...p,id:nextId(),name:p.name+" (Copy)"});return commit()}
+ if(a==="off")p.off=!p.off;if(a==="stock")p.stock=!p.stock;if(a==="tag")p.tag=p.tag?"":"New";commit()}
+function pNew(){editing={id:nextId(),_o:0,name:"",cat:C.cats[0]||"",price:0,old:0,stock:true,tag:"",feat:false,off:false,badge:"",img:"",alt:"",desc:"",specs:"",emoji:"🎮"};drawAdmin()}
+const pv=()=>{const p=editing;return `<div class="aspect-square bg-bg rounded-xl overflow-hidden">${thumb(p,"w-full h-full object-cover")}</div><div class="mt-2 font-semibold">${esc(p.name||"Product name")}</div><div><span class="text-neon font-bold">${tk(p.price||0)}</span> ${p.old>p.price?`<s class="text-xs text-slate-500">${tk(p.old)}</s> <b class="text-red-400 text-xs">-${disc(p)}%</b>`:""}</div>`};
+function pForm(){const p=editing,
+ I=(k,l,t="")=>`<label class="block"><span class="text-xs text-slate-400">${l}</span><input data-p="${k}" ${t==="n"?'type="number" min="0"':""} value="${esc(p[k])}" oninput="pset(this)" class="field mt-1"></label>`,
+ B=(k,l)=>`<label class="flex items-center gap-2 text-sm"><input type="checkbox" data-p="${k}" ${p[k]?"checked":""} onchange="pset(this)"> ${l}</label>`,
+ T=(k,l)=>`<label class="sm:col-span-2 block"><span class="text-xs text-slate-400">${l}</span><textarea data-p="${k}" rows="3" oninput="pset(this)" class="field mt-1">${esc(p[k])}</textarea></label>`;
+ return H(p._o?"Edit product":"New product")+`<div class="grid lg:grid-cols-3 gap-4"><div class="card lg:col-span-2 grid sm:grid-cols-2 gap-3">${I("name","Product name")}${I("id","Product ID","n")}
+ <label class="block"><span class="text-xs text-slate-400">Category</span><select data-p="cat" onchange="pset(this)" class="field mt-1">${C.cats.map(c=>`<option ${c===p.cat?"selected":""}>${esc(c)}</option>`).join("")}</select></label>
+ ${I("price","Selling price (৳)","n")}${I("old","Old price (৳) — discount is automatic","n")}${I("emoji","Emoji (fallback image)")}${I("badge","Short badge (optional)")}${I("img","Image URL (https://…)")}
+ <label class="block"><span class="text-xs text-slate-400">…or upload image (stored in this browser only)</span><input type="file" accept="image/*" onchange="upl(this)" class="field mt-1"></label>${I("alt","Image alt text")}
+ ${T("desc","Description")}${T("specs","Extra details / specifications (one per line)")}
+ <div class="sm:col-span-2 flex flex-wrap gap-4">${B("stock","In stock")}${B("tag","New drop")}${B("feat","Featured")}${B("off","Disabled (hidden from shop)")}</div></div>
+ <div class="card"><div class="text-xs text-slate-400 mb-2">Preview</div><div id="pv">${pv()}</div></div></div>
+ <div class="flex gap-2 mt-4"><button class="btn-neon px-5 py-2 rounded-lg" onclick="pSave()">Save product</button><button class="btn2" onclick="pCancel()">Cancel</button></div>`}
+function pset(el){const k=el.dataset.p;editing[k]=el.type==="checkbox"?(k==="tag"?(el.checked?"New":""):el.checked):el.type==="number"?+el.value:el.value;$("pv").innerHTML=pv()}
+function upl(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,640/Math.max(im.width,im.height)),cv=document.createElement("canvas");cv.width=im.width*s;cv.height=im.height*s;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);editing.img=cv.toDataURL("image/jpeg",.75);dirty=true;drawAdmin()};im.onerror=()=>toast("Invalid image file");im.src=r.result};r.readAsDataURL(f)}
+function pSave(){const p=editing;p.name=p.name.trim();
+ if(!p.name)return toast("Product name is required");if(!(p.price>0))return toast("Enter a selling price");
+ if(!Number.isInteger(p.id)||p.id<1||C.products.some(x=>x.id===p.id&&x.id!==p._o))return toast("Product ID must be a unique positive number");
+ if(!isUrl(p.img,1))return toast("Image URL must start with https://");
+ const o=p._o;delete p._o;const i=C.products.findIndex(x=>x.id===o);
+ if(o&&i>=0){cart.forEach(c=>{if(c.id===o)c.id=p.id});C.products[i]=p}else C.products.push(p);
+ editing=null;commit()}
+function pCancel(){const f=()=>{dirty=false;editing=null;drawAdmin()};dirty?ask("Discard unsaved changes?",f):f()}
+
+/* --- Categories --- */
+R.cat=()=>H("Categories")+`<div class="card space-y-2">${C.cats.map((c,i)=>`<div class="flex gap-2 items-center"><input class="field" value="${esc(c)}" onchange="catRen(${i},this.value)"><span class="text-xs text-slate-400 w-16 shrink-0">${C.products.filter(p=>p.cat===c).length} items</span><button class="btn2" onclick="catMove(${i},-1)">▲</button><button class="btn2" onclick="catMove(${i},1)">▼</button><button class="btn2 text-red-400" onclick="catDel(${i})">Delete</button></div>`).join("")}<div class="flex gap-2 pt-2"><input id="newCat" class="field" placeholder="New category name"><button class="btn-neon px-4 rounded-lg" onclick="catAdd()">Add</button></div></div>`;
+function catRen(i,v){v=v.trim();if(!v||C.cats.some((c,j)=>c===v&&j!==i)){toast("Invalid or duplicate name");return drawAdmin()}const o=C.cats[i];C.cats[i]=v;C.products.forEach(p=>{if(p.cat===o)p.cat=v});commit()}
+function catAdd(){const v=$("newCat").value.trim();if(!v||C.cats.includes(v))return toast("Enter a unique name");C.cats.push(v);commit()}
+function catMove(i,d){const j=i+d;if(j<0||j>=C.cats.length)return;[C.cats[i],C.cats[j]]=[C.cats[j],C.cats[i]];commit()}
+function catDel(i){const c=C.cats[i],n=C.products.filter(p=>p.cat===c).length;
+ ask(n?`Delete "${c}"? Its ${n} product(s) will be moved to "Uncategorized".`:`Delete "${c}"?`,()=>{C.cats.splice(i,1);if(n){if(!C.cats.includes("Uncategorized"))C.cats.push("Uncategorized");C.products.forEach(p=>{if(p.cat===c)p.cat="Uncategorized"})}commit()})}
+
+/* --- Orders (browser-local history; customers' orders are only recorded in the browser they used) --- */
+function olist(){const q=oq.toLowerCase();return ORD.filter(o=>!q||(o.id+o.name+o.phone).toLowerCase().includes(q)).map(o=>`<details class="card"><summary class="cursor-pointer flex flex-wrap gap-x-4 gap-y-1"><b>${esc(o.id)}</b><span>${esc(o.name)}</span><span class="text-lime">${tk(o.total)}</span><span class="text-xs px-2 py-0.5 rounded bg-violet/30">${esc(o.status)}</span></summary><div class="text-sm text-slate-300 mt-3 space-y-1"><div>${esc(new Date(o.date).toLocaleString())}</div><div>📞 ${esc(o.phone)}</div><div>📍 ${esc(o.addr)}</div>${o.items.map(i=>`<div>• ${esc(i.name)} × ${i.qty} = ${tk(i.price*i.qty)}</div>`).join("")}<div>Subtotal ${tk(o.sub)} · Delivery ${tk(o.ship)} · <b>Total ${tk(o.total)}</b> · ${esc(o.pay)}</div><div class="flex flex-wrap gap-1 pt-2">${ST.map(s=>`<button class="btn2" onclick="oSet('${o.id}','${s}')">Mark ${s}</button>`).join("")}<button class="btn2 text-red-400" onclick="oDel('${o.id}')">Delete</button></div></div></details>`).join("")||'<p class="text-slate-400">No orders found.</p>'}
+R.ord=()=>H("Orders")+`<p class="text-xs text-amber-300 mb-3">Static site: orders are saved only in the browser that placed them. Your real order list is your WhatsApp inbox.</p><input class="field mb-4" placeholder="Search order ID / name / phone" oninput="oq=this.value;$('olist').innerHTML=olist()"><div id="olist" class="space-y-3">${olist()}</div>`;
+function oSet(id,s){const o=ORD.find(x=>x.id===id);if(o){o.status=s;Store.set("fg_orders",ORD);toast("✓ Saved successfully");drawAdmin()}}
+function oDel(id){ask("Delete this order record?",()=>{ORD=ORD.filter(o=>o.id!==id);Store.set("fg_orders",ORD);drawAdmin()})}
+
+/* --- Backup / Restore / Publish --- */
+function dl(n,o){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:"application/json"}));a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1e3)}
+const pub=()=>{const{pw,...c}=C;return c};
+R.bak=()=>H("Backup & Publish")+`<div class="card mb-4 space-y-3"><h3 class="font-bold">Publish to your live site (GitHub Pages)</h3><p class="text-sm text-slate-400">Edits are saved in this browser only. To show them to all visitors: download <b>site-config.json</b> and upload it to your GitHub repo next to index.html (replace the old one). The site loads it automatically — no code editing needed. Avoid uploaded images (large); use image URLs.</p><button class="btn-neon px-4 py-2 rounded-lg" onclick="dl('site-config.json',pub())">⬇ Download site-config.json</button></div>
+<div class="card space-y-3"><h3 class="font-bold">Backup</h3><div class="flex flex-wrap gap-2"><button class="btn2" onclick="dl('backup-'+new Date().toISOString().slice(0,10)+'.json',{app:'fg-admin',v:2,cfg:pub(),orders:ORD})">⬇ Download full backup</button><label class="btn2 cursor-pointer">⬆ Restore backup<input type="file" accept=".json" class="hidden" onchange="imp(this)"></label><button class="btn2 text-red-400" onclick="rst()">Reset to default</button></div></div>`;
+function imp(el){const f=el.files[0];if(!f)return;f.text().then(t=>{const j=JSON.parse(t),cfg=j.cfg||j;if(!cfg||!Array.isArray(cfg.products))throw 0;
+ ask("Replace ALL current data with this backup?",()=>{C=build(cfg);if(Array.isArray(j.orders)){ORD=j.orders.map(normOrd).filter(Boolean);Store.set("fg_orders",ORD)}commit()})}).catch(()=>toast("Invalid backup file"));el.value=""}
+const rst=()=>ask("Reset EVERYTHING (products, settings, orders) to defaults? This cannot be undone.",()=>{Store.del("fg_cfg2");Store.del("fg_orders");location.reload()});
+
+/* ----- boot ----- */
+applyCfg();
+// Optional shared config published with the site (see Backup tab). Local admin edits take priority in the owner's browser.
+fetch("site-config.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&Array.isArray(j.products)&&!SAVED){C=build(SAVED_CFG,j);applyCfg()}}).catch(()=>{});
+if(location.hash==="#admin")openLogin();
+</script>
+</body>
+</html>
